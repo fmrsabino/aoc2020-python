@@ -10,14 +10,20 @@ expenses = [
 targetSum = 2020
 
 
-def main():
-    for i, expense1 in enumerate(expenses):
-        for j, expense2 in enumerate(iterable=expenses[i+1:], start=i+1):
-            if (j >= len(expenses)):
-                break
-            if (expense1 + expense2 == targetSum):
-                print(f'result = {expense1*expense2}')
+def solution1(expenses):
+    for i, a in enumerate(expenses):
+        for b in expenses[i+1:]:
+            if (a + b == targetSum):
+                return a * b
+
+
+def solution2(expenses):
+    pairs = [(a, b) for i, a in enumerate(expenses) for b in expenses[i+1:]]
+    for (a, b) in pairs:
+        if(a + b == targetSum):
+            return a * b
 
 
 if __name__ == '__main__':
-    main()
+    result = solution1(expenses)
+    print(f'result = {result}')
