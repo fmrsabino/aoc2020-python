@@ -12,15 +12,15 @@ targetSum = 2020
 
 def solution1(expenses):
     for i, a in enumerate(expenses):
-        for b in expenses[i+1:]:
-            if (a + b == targetSum):
+        for b in expenses[i + 1:]:
+            if a + b == targetSum:
                 return a * b
 
 
 def solution2(expenses):
-    pairs = [(a, b) for i, a in enumerate(expenses) for b in expenses[i+1:]]
+    pairs = [(a, b) for i, a in enumerate(expenses) for b in expenses[i + 1:]]
     for (a, b) in pairs:
-        if(a + b == targetSum):
+        if a + b == targetSum:
             return a * b
 
 
