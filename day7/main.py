@@ -8,7 +8,7 @@ CONTENTS_PATTERN = re.compile("([0-9]+) (.+) bags?")
 
 def parse_bag_contents(raw_contents: str) -> {}:
     return {
-        (match.group(1), match.group(2))
+        (int(match.group(1)), match.group(2))
         for content in raw_contents.split(",")
         for match in CONTENTS_PATTERN.finditer(content.strip())
     }
@@ -30,7 +30,16 @@ def search_bags(target_bags: set) -> {}:
     return container_bags if len(container_bags) == 0 else container_bags.union(search_bags(container_bags))
 
 
+def part2(target: str) -> int:
+    return sum([
+        amount + amount * sum([part2(content)])
+        for (bag, contents) in BAGS.items()
+        if bag == target
+        for (amount, content) in contents
+    ])
+
+
 if __name__ == '__main__':
     read_input()
-    result = len(search_bags({'shiny gold'}))
-    print(f'{result} bags')
+    print(f'Part 1: {len(search_bags({"shiny gold"}))} bags')
+    print(f'Part 2: {part2("shiny gold")}')
