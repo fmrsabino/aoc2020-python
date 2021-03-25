@@ -20,12 +20,8 @@ def read_input():
             BAGS[match.group(1)] = parse_bag_contents(match.group(2))
 
 
-def search_bags(target_bags: set) -> []:
-    container_bags = set()
-    for bag, contents in BAGS.items():
-        for target_bag in target_bags:
-            if target_bag in contents:
-                container_bags.add(bag)
+def search_bags(target_bags: set) -> {}:
+    container_bags = {bag for target_bag in target_bags for (bag, contents) in BAGS.items() if target_bag in contents}
     if len(container_bags) == 0:
         return container_bags
     else:
