@@ -31,12 +31,8 @@ def search_bags(target_bags: set) -> {}:
 
 
 def part2(target: str) -> int:
-    return sum([
-        amount + amount * sum([part2(content)])
-        for (bag, contents) in BAGS.items()
-        if bag == target
-        for (amount, content) in contents
-    ])
+    return sum(n + n * part2(bag)
+               for (n, bag) in BAGS[target])
 
 
 if __name__ == '__main__':
