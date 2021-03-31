@@ -1,32 +1,27 @@
-PROGRAM = [
-    ('nop', 0, False),
-    ('acc', 1, False),
-    ('jmp', 4, False),
-    ('acc', 3, False),
-    ('jmp', -3, False),
-    ('acc', -99, False),
-    ('acc', 1, False),
-    ('jmp', -4, False),
-    ('acc', 6, False),
-]
+def read_input() -> []:
+    program = []
+    for line in open("input.txt"):
+        parts = line.split(' ')
+        program.append((parts[0], int(parts[1]), False))
+    return program
 
-ACCUMULATOR = 0
 
-if __name__ == '__main__':
+def run_program(program: [str]) -> int:
+    accumulator = 0
     program_counter = 0
-    while program_counter < len(PROGRAM):
-        (op, arg, executed) = PROGRAM[program_counter]
+    while program_counter < len(program):
+        (op, arg, executed) = program[program_counter]
         if executed:
             break
-        PROGRAM[program_counter] = (op, arg, True)
-        if op == 'acc':
-            ACCUMULATOR += arg
-            program_counter = program_counter + 1
-            continue
+        program[program_counter] = (op, arg, True)
         if op == 'jmp':
             program_counter += arg
             continue
-        else:
-            program_counter = program_counter + 1
+        if op == 'acc':
+            accumulator += arg
+        program_counter = program_counter + 1
+    return accumulator
 
-    print(f'Accumulator = {ACCUMULATOR}')
+
+if __name__ == '__main__':
+    print(f'Accumulator = {run_program(read_input())}')
